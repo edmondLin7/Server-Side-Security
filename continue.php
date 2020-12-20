@@ -48,8 +48,6 @@
               $count++;
             }
           }
-          $eng = ltrim($eng);
-          $other = ltrim($other);
           $engvalues = explode(" ", $eng);
           $other = explode(" ", $other);
           $found = false;
