@@ -4,7 +4,7 @@
   if ($conn->connect_error) die(mysql_fatal_error());
   session_start();
 
-   if ($_SESSION['check'] != hash('ripemd128', $_SERVER['REMOTE_ADDR'] .$_SERVER['HTTP_USER_AGENT']))
+   if ($_SESSION['check'] != hash('sha256', $_SERVER['REMOTE_ADDR'] .$_SERVER['HTTP_USER_AGENT']))
    {
       different_user();
    }
