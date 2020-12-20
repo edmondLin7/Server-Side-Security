@@ -79,7 +79,7 @@
      }
      else {
         echo "Pleas authethicate";
-        die("<p><a href = lame.php> Click here to continue </a></p>");
+        die("<p><a href = translator.php> Click here to continue </a></p>");
      }
      $conn->close();
      
