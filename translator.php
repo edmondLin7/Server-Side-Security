@@ -24,7 +24,7 @@
         $salting = explode("@", $username, 2);
         $salt = $salting[0];
         $saltedPass = $salt . $password;
-        $hashedPass = hash('ripemd128', $saltedPass);
+        $hashedPass = hash('sha256', $saltedPass);
         $query = "SELECT * FROM cred";
         $result = $conn->query($query);
         if(!$result) die(mysql_fatal_error());
@@ -50,10 +50,8 @@
         {
           echo mysql_fatal_error();
         }
-        echo "hello";
         $placeholder->close();
       }
-      //FileName (Optional) <input type="text" name="filename"><br>
 
       echo <<<_END
         <h1>ACCOUNT LOGIN</h1>
@@ -81,7 +79,6 @@
           if(!$result) die(mysql_fatal_error());
           $rows = $result->num_rows;
           $foundUser = false;
-          // finds if username / password exists, if yes display, and/or upload data
           for ($j = 0 ; $j < $rows ; ++$j)
           {
             $result->data_seek($j);
@@ -106,18 +103,16 @@
                     die ("Empty text file");
                   }
                   $fh = fopen("$file_name", 'r') or die ("Can not to open file");
-                  $i = 0;
+                  $fileLine = 0;
                   $english = "";
                   $trans = "";
                   if (flock($fh, LOCK_EX))
                   {
                     while(!feof($fh))
                     {
-                      $i++;
+                      $fileLine++;
                       $line = fgets($fh);
-                      $line = rtrim($line);
-                      $line = ltrim($line);
-                      if($i % 2 == 1)
+                      if($fileLine % 2 == 1)
                       {
                         $english = $english . " " . $line;
                       }
